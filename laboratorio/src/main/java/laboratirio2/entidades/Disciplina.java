@@ -2,8 +2,6 @@ package laboratirio2.entidades;
 
 import java.util.ArrayList;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,7 +9,8 @@ import javax.persistence.Id;
 import laboratirio2.dtos.DisciplinaDTO;
 
 @Entity
-public class Disciplina implements Comparable<Disciplina> {
+public class Disciplina {
+	
 	@Id @GeneratedValue
 	private Long id;
 	
@@ -19,7 +18,9 @@ public class Disciplina implements Comparable<Disciplina> {
 	
 	private int likes;
 	
-	private ArrayList<Double> notas = new ArrayList<Double>();
+	private double nota;
+	
+	private ArrayList<String> comentarios = new ArrayList<String>();
 	
 	private boolean visibilidade = true;
 	
@@ -46,28 +47,19 @@ public class Disciplina implements Comparable<Disciplina> {
 		return likes;
 	}
 
-	public void setLikes(int likes) {
-		this.likes = likes;
+	public void setLikes() {
+		this.likes++;
 	}
 
-	public List<Double> getNotas() {
-		return notas;
+	public double getNotas() {
+		return nota;
 	}
 
 	public  void setNotas(double nota) {
-		this.notas.add(nota);
+		this.nota = nota;
 	}
 	public Long getId() {
 		return id;
-	}
-	public double retornaMedia() {
-		double media = 0;
-		double soma =0;
-		for(int i=0;i<notas.size();i++){ 
-			soma += notas.get(i);
-		}
-		media = soma / notas.size();
-		return media;
 	}
 	
 	@Override
@@ -118,14 +110,11 @@ public class Disciplina implements Comparable<Disciplina> {
 		return null;
 	}
 
-	@Override
-	public int compareTo(Disciplina o) {
-		if (retornaMedia() < o.retornaMedia()) {
-		return 1;
-		}else if  (retornaMedia() > o.retornaMedia()){
-		return -1;
-		}
-		return 0;
+	public ArrayList<String> getComentarios() {
+		return comentarios;
 	}
 
+	public void setComentarios(String comentario) {
+		this.comentarios.add(comentario);
+	}
 }
